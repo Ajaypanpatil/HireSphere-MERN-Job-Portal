@@ -30,7 +30,7 @@ const jobSchema = mongoose.Schema({
 
   employmentType: {
     type: String,
-    enum: ["full-time", "part-time", "contract", "Internship"],
+    enum: ["Full-time", "Part-time", "Contract", "Internship"],
     default: "full-time",
   },
 
@@ -45,3 +45,7 @@ const jobSchema = mongoose.Schema({
     default: "Open",
   },
 });
+
+const Job = mongoose.model('job', jobSchema);
+
+export default Job;

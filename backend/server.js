@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import connectDB from './src/config/db.js';
 import authRoutes from './src/routes/authRoutes.js';
 import testRoutes from './src/routes/testRoutes.js';
+import jobRoutes from './src/routes/jobRoutes.js';
 
 
 dotenv.config();
@@ -21,6 +22,9 @@ app.get('/', (req, res) => res.send('API running'));
 app.use('/api/auth', authRoutes);
 
 app.use('/api/test', testRoutes);
+
+
+app.use('/api/jobs', jobRoutes);
 
 
 connectDB().then(() => {
