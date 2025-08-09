@@ -85,3 +85,7 @@ export const listJobs = async (req, res) => {
     res.status(500).json({ message: "Server error, job is not listing." });
   }
 };
+
+
+
+// get a single job
