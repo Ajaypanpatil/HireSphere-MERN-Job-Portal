@@ -89,3 +89,82 @@ export const listJobs = async (req, res) => {
 
 
 // get a single job
+
+export const getJobById = async (req, res) => {
+  const jobId = req.params.id;
+
+  try {
+    const job = await Job.findById(jobId).populate('recruiter', 'name email');
+
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    res.json(job);
+  } catch (error) {
+    console.error("Get job by ID error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+//  update job by only recruiter who created it 
+export const updateJob = async (req, res) => {
+  const jobId = req.params.id;
+  const recruiterId = req.user.id; // from auth middleware
+  const updates = req.body;
+
+  try {
+    const job = await Job.findById(jobId);
+
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    if (job.recruiter.toString() !== recruiterId) {
+      return res.status(403).json({ message: "Not authorized to update this job" });
+    }
+
+    // Update allowed fields only (to avoid arbitrary updates)
+    const allowedUpdates = ["title", "description", "skills", "location", "salary", "employmentType", "status"];
+    allowedUpdates.forEach((field) => {
+      if (updates[field] !== undefined) {
+        job[field] = updates[field];
+      }
+    });
+
+    await job.save();
+
+    res.json({ message: "Job updated successfully", job });
+  } catch (error) {
+    console.error("Update job error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// delete job by recruiter 
+
+export const deleteJob = async (req, res) => {
+  const jobId = req.params.id;
+  const recruiterId = req.user.id;
+
+  try {
+    const job = await Job.findById(jobId);
+
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    if (job.recruiter.toString() !== recruiterId) {
+      return res.status(403).json({ message: "Not authorized to delete this job" });
+    }
+
+    // Delete job by id
+    await Job.findByIdAndDelete(jobId);
+
+    res.json({ message: "Job deleted successfully" });
+  } catch (error) {
+    console.error("Delete job error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
