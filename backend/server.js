@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import connectDB from './src/config/db.js';
 import authRoutes from './src/routes/authRoutes.js';
+import testRoutes from './src/routes/testRoutes.js';
 
 
 dotenv.config();
@@ -17,7 +18,9 @@ app.use(cookieParser());
 
 app.get('/', (req, res) => res.send('API running'));
 
-app.use('/api/auth', authRoutes)
+app.use('/api/auth', authRoutes);
+
+app.use('/api/test', testRoutes);
 
 
 connectDB().then(() => {
