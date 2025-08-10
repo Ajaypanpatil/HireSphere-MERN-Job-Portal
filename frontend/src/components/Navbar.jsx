@@ -6,13 +6,21 @@ export default function Navbar() {
   const { user, logout, isAuthenticated } = useContext(AuthContext);
 
   return (
-    <nav style={{ display: "flex", gap: "1rem", padding: "1rem", background: "#eee" }}>
+    <nav
+      style={{
+        display: "flex",
+        gap: "1rem",
+        padding: "1rem",
+        background: "#eee",
+      }}
+    >
       <Link to="/">Home</Link>
 
       {isAuthenticated && user?.role === "recruiter" && (
         <>
           <Link to="/recruiter">Recruiter Dashboard</Link>
           <Link to="/post-job">Post Job</Link>
+          <Link to="/my-jobs" className="mr-4">My Jobs</Link>
         </>
       )}
 
@@ -23,9 +31,9 @@ export default function Navbar() {
         </>
       )}
 
-      {isAuthenticated && user?.role === "recruiter" && (
-  <Link to="/post-job" className="mr-4">Post Job</Link>
-)}
+      
+
+      
 
       {!isAuthenticated && (
         <>

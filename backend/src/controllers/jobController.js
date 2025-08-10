@@ -108,6 +108,26 @@ export const getJobById = async (req, res) => {
 };
 
 
+// get jobs created by logged-in recruiter
+export const getMyJobs = async (req, res) => {
+  try {
+    if (req.user.role !== "recruiter") {
+      return res.status(403).json({ message: "Only recruiters can view their posted jobs" });
+    }
+
+    const jobs = await Job.find({ recruiter: req.user.id })
+      .sort({ createdAt: -1 })
+      .populate("recruiter", "name email");
+
+    res.status(200).json({ jobs });
+  } catch (error) {
+    console.error("Get my jobs error:", error);
+    res.status(500).json({ message: "Server error, could not fetch your jobs." });
+  }
+};
+
+
+
 //  update job by only recruiter who created it 
 export const updateJob = async (req, res) => {
   const jobId = req.params.id;

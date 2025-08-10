@@ -25,7 +25,8 @@ export const createJob = async (jobData) => {
 
 
 export const getMyJobs = async () => {
-  const { data } = await api.get("/applications/recruiter/");
+  const { data } = await api.get("/jobs/my-jobs");
+   console.log("API Response:", data);
   return data; // backend should return array of jobs
 };
 

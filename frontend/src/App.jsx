@@ -15,6 +15,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import RecruiterDashboard from "./pages/RecruiterDashboard";
 import CandidateDashboard from "./pages/CandidateDashboard";
 import PostJob from "./pages/PostJob";
+import MyJobs from "./pages/MyJobs";
 
 export default function App() {
   return (
@@ -64,6 +65,15 @@ export default function App() {
           element={
             <PrivateRoute allowedRoles={["recruiter"]}>
               <PostJob />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/my-jobs"
+          element={
+            <PrivateRoute allowedRoles={["recruiter"]}>
+              <MyJobs />
             </PrivateRoute>
           }
         />
