@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -7,6 +12,8 @@ import Jobs from "./pages/Jobs";
 import JobDetails from "./pages/JobDetails";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute";
+import RecruiterDashboard from "./pages/RecruiterDashboard";
+import CandidateDashboard from "./pages/CandidateDashboard";
 
 export default function App() {
   return (
@@ -32,6 +39,24 @@ export default function App() {
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="/recruiter"
+          element={
+            <PrivateRoute allowedRoles={["recruiter"]}>
+              <RecruiterDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/candidate"
+          element={
+            <PrivateRoute allowedRoles={["candidate"]}>
+              <CandidateDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/unauthorized" element={<Home />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

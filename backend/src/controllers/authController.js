@@ -31,10 +31,26 @@ export const registerUser = async (req, res) => {
 
     await user.save();
 
+    const payload = { id: user._id, role: user.role };
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+
     res.status(201).json({ message: "User registered successfully." });
   } catch (error) {
     console.error("Registration error:", error);
-    res.status(500).json({ message: "Server error, please try again later." });
+    res.status(500).json({ message: "Server error, reguster try again later." });
   }
 };
 
@@ -112,11 +128,15 @@ export const getCurrentUser = async (req, res) => {
 
 // Update current logged-in user's profile
 export const updateUserProfile = async (req, res) => {
-  const userId = req.user.id;  // from auth middleware
+  const userId = req.user.id; // from auth middleware
   const { name, email } = req.body;
 
   if (!name && !email) {
-    return res.status(400).json({ message: "At least one field (name or email) is required to update." });
+    return res
+      .status(400)
+      .json({
+        message: "At least one field (name or email) is required to update.",
+      });
   }
 
   try {
@@ -124,7 +144,9 @@ export const updateUserProfile = async (req, res) => {
     if (email) {
       const emailExists = await User.findOne({ email, _id: { $ne: userId } });
       if (emailExists) {
-        return res.status(409).json({ message: "Email is already in use by another account." });
+        return res
+          .status(409)
+          .json({ message: "Email is already in use by another account." });
       }
     }
 

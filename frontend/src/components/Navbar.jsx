@@ -1,25 +1,41 @@
-import { Link } from "react-router-dom";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Navbar() {
-  const { user } = useContext(AuthContext);
+  const { user, logout, isAuthenticated } = useContext(AuthContext);
 
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between">
-      <div className="font-bold">HireSphere</div>
-      <div className="space-x-4">
-        <Link to="/">Home</Link>
-        <Link to="/jobs">Jobs</Link>
-        {user ? (
-          <Link to="/dashboard">Dashboard</Link>
-        ) : (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-          </>
-        )}
-      </div>
+    <nav style={{ display: "flex", gap: "1rem", padding: "1rem", background: "#eee" }}>
+      <Link to="/">Home</Link>
+
+      {isAuthenticated && user?.role === "recruiter" && (
+        <>
+          <Link to="/recruiter">Recruiter Dashboard</Link>
+          <Link to="/post-job">Post Job</Link>
+        </>
+      )}
+
+      {isAuthenticated && user?.role === "candidate" && (
+        <>
+          <Link to="/candidate">Candidate Dashboard</Link>
+          <Link to="/browse-jobs">Browse Jobs</Link>
+        </>
+      )}
+
+      {!isAuthenticated && (
+        <>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
+        </>
+      )}
+
+      {isAuthenticated && (
+        <>
+          <span>Hi, {user?.username}</span>
+          <button onClick={logout}>Logout</button>
+        </>
+      )}
     </nav>
   );
 }

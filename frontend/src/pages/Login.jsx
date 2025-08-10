@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import api from "../services/api"; 
+import api from "../services/api";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -24,8 +24,8 @@ export default function Login() {
       // update context + localStorage (AuthContext also persists but keep consistent)
       login(user, token);
 
-      // redirect to dashboard (or role-based route)
-      navigate("/dashboard");
+      // redirect to dashboard role-based route
+      navigate("/Home");
     } catch (err) {
       console.error("Login error:", err);
       setError(err.response?.data?.message || err.message || "Login failed");
