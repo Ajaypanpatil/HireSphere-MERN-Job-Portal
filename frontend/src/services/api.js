@@ -16,29 +16,42 @@ api.interceptors.request.use((config) => {
 // ===================== RECRUITER JOBS =====================
 
 // Create new job
+
 export const createJob = async (jobData) => {
+  // jobData should be an object matching backend expectation
   const { data } = await api.post("/jobs/create", jobData);
   return data;
 };
 
-// Get jobs posted by the logged-in recruiter
+
 export const getMyJobs = async () => {
   const { data } = await api.get("/applications/recruiter/");
-  return data; // Array of jobs
+  return data; // backend should return array of jobs
 };
 
-// Get applicants for a specific job
-export const getJobApplicants = async (jobId) => {
-  const { data } = await api.get(`/jobs/${jobId}/applicants`);
-  return data; // Array of applicants
-};
-
-// Update application status
-export const updateApplicantStatus = async (jobId, applicantId, status) => {
-  const { data } = await api.patch(`/jobs/${jobId}/applicants/${applicantId}`, {
-    status,
-  });
+export const deleteJob = async (jobId) => {
+  const { data } = await api.delete(`/jobs/${jobId}`);
   return data;
 };
+
+// // Get jobs posted by the logged-in recruiter
+// export const getMyJobs = async () => {
+//   const { data } = await api.get("/applications/recruiter/");
+//   return data; // Array of jobs
+// };
+
+// // Get applicants for a specific job
+// export const getJobApplicants = async (jobId) => {
+//   const { data } = await api.get(`/jobs/${jobId}/applicants`);
+//   return data; // Array of applicants
+// };
+
+// // Update application status
+// export const updateApplicantStatus = async (jobId, applicantId, status) => {
+//   const { data } = await api.patch(`/jobs/${jobId}/applicants/${applicantId}`, {
+//     status,
+//   });
+//   return data;
+// };
 
 export default api;

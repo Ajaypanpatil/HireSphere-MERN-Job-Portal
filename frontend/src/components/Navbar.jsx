@@ -23,6 +23,10 @@ export default function Navbar() {
         </>
       )}
 
+      {isAuthenticated && user?.role === "recruiter" && (
+  <Link to="/post-job" className="mr-4">Post Job</Link>
+)}
+
       {!isAuthenticated && (
         <>
           <Link to="/login">Login</Link>

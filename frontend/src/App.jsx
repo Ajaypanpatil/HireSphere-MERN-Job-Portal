@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute";
 import RecruiterDashboard from "./pages/RecruiterDashboard";
 import CandidateDashboard from "./pages/CandidateDashboard";
+import PostJob from "./pages/PostJob";
 
 export default function App() {
   return (
@@ -57,6 +58,15 @@ export default function App() {
           }
         />
         <Route path="/unauthorized" element={<Home />} />
+
+        <Route
+          path="/post-job"
+          element={
+            <PrivateRoute allowedRoles={["recruiter"]}>
+              <PostJob />
+            </PrivateRoute>
+          }
+        />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
