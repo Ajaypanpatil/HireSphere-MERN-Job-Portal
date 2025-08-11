@@ -9,7 +9,7 @@ export default function MyJobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [deleting, setDeleting] = useState(null); // track which job is being deleted
+  const [deleting, setDeleting] = useState(null); 
 
   useEffect(() => {
     if (user?.role === "recruiter") {

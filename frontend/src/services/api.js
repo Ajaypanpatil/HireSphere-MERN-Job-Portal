@@ -18,18 +18,19 @@ api.interceptors.request.use((config) => {
 // Create new job
 
 export const createJob = async (jobData) => {
-  // jobData should be an object matching backend expectation
   const { data } = await api.post("/jobs/create", jobData);
   return data;
 };
 
-
+// recruiter get his created jobs
 export const getMyJobs = async () => {
   const { data } = await api.get("/jobs/my-jobs");
    console.log("API Response:", data);
-  return data; // backend should return array of jobs
+  return data; 
 };
 
+
+// recruiter delete his created jobs
 export const deleteJob = async (jobId) => {
   const { data } = await api.delete(`/jobs/${jobId}`);
   return data;
