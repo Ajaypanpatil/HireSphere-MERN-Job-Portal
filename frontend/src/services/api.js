@@ -45,11 +45,11 @@ export const getJobApplicants = async (jobId) => {
 };
 
 // // Update application status
-// export const updateApplicantStatus = async (jobId, applicantId, status) => {
-//   const { data } = await api.patch(`/jobs/${jobId}/applicants/${applicantId}`, {
-//     status,
-//   });
-//   return data;
-// };
+export const updateApplicantStatus = async (jobId, applicantId, status) => {
+  const { data } = await api.patch(`/jobs/${jobId}/applicants/${applicantId}`, {
+    status,
+  });
+  return data;
+};
 
 export default api;
