@@ -36,17 +36,13 @@ export const deleteJob = async (jobId) => {
   return data;
 };
 
-// // Get jobs posted by the logged-in recruiter
-// export const getMyJobs = async () => {
-//   const { data } = await api.get("/applications/recruiter/");
-//   return data; // Array of jobs
-// };
+
 
 // // Get applicants for a specific job
-// export const getJobApplicants = async (jobId) => {
-//   const { data } = await api.get(`/jobs/${jobId}/applicants`);
-//   return data; // Array of applicants
-// };
+export const getJobApplicants = async (jobId) => {
+  const { data } = await api.get(`/jobs/${jobId}/applicants`);
+  return data; // Array of applicants
+};
 
 // // Update application status
 // export const updateApplicantStatus = async (jobId, applicantId, status) => {
