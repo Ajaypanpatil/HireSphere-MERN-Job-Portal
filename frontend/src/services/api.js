@@ -52,6 +52,6 @@ export const updateApplicantStatus = async (jobId, applicantId, status) => {
   return data;
 };
 
-//  candidate 
+//  candidate job post 
 
 export default api;
