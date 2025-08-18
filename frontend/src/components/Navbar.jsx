@@ -27,7 +27,7 @@ export default function Navbar() {
       {isAuthenticated && user?.role === "candidate" && (
         <>
           <Link to="/candidate">Candidate Dashboard</Link>
-          <Link to="/browse-jobs">Browse Jobs</Link>
+          <Link to="/jobs">Browse Jobs</Link>
         </>
       )}
 

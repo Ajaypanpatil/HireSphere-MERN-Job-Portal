@@ -37,21 +37,22 @@ export const deleteJob = async (jobId) => {
 };
 
 
+// ===================== PUBLIC JOB LISTING =====================
 
-// // Get applicants for a specific job
-export const getJobApplicants = async (jobId) => {
-  const { data } = await api.get(`/jobs/${jobId}/applicants`);
-  return data; // Array of applicants
-};
-
-// // Update application status
-export const updateApplicantStatus = async (jobId, applicantId, status) => {
-  const { data } = await api.patch(`/jobs/${jobId}/applicants/${applicantId}`, {
-    status,
-  });
+// Get all jobs (for candidate/public view)
+export const getAllJobs = async () => {
+  const { data } = await api.get("/jobs");
   return data;
 };
 
-//  candidate job post 
+
+// ===================== APPLICATIONS =====================
+export const applyToJob = async (jobId) => {
+  const { data } = await api.post("/applications/apply", { jobId });
+  return data;
+};
+
+
+
 
 export default api;

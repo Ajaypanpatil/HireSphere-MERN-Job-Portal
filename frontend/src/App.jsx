@@ -8,7 +8,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Jobs from "./pages/Jobs";
+// import Jobs from "./pages/Jobs";
 import JobDetails from "./pages/JobDetails";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute";
@@ -16,6 +16,7 @@ import RecruiterDashboard from "./pages/RecruiterDashboard";
 import CandidateDashboard from "./pages/CandidateDashboard";
 import PostJob from "./pages/PostJob";
 import MyJobs from "./pages/MyJobs";
+import JobList from "./pages/JobList";
 
 export default function App() {
   return (
@@ -24,7 +25,7 @@ export default function App() {
         {/* layout (navbar/footer) wrapper */}
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobs" element={<JobList />} />
           <Route path="/jobs/:id" element={<JobDetails />} />
         </Route>
 

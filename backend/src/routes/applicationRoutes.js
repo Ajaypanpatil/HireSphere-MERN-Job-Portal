@@ -6,7 +6,7 @@ import { authorizeRoles } from '../middleware/roleMiddleware.js';
 const router = express.Router();
 
 // Candidate applies to a job
-router.post('/', protect, authorizeRoles('candidate'), applyToJob);
+router.post('/apply', protect, authorizeRoles('candidate'), applyToJob);
 
 // Recruiter views applications for their jobs
 router.get('/recruiter', protect, authorizeRoles('recruiter'), getApplicationsForRecruiter);
