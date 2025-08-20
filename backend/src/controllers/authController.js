@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 // Regster the Candidate and Recruiter
 
 export const registerUser = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, company } = req.body;
 
-  if (!name || !email || !password || !role) {
+  if (!name || !email || !password || !role ) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -27,32 +27,33 @@ export const registerUser = async (req, res) => {
       email,
       password,
       role,
+      company: role === "recruiter" ? company : undefined,
     });
 
     await user.save();
 
-    const payload = { id: user._id, role: user.role };
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
-
-    res.json({
+    res.status(201).json({
       token,
       user: {
         id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
+        company: user.company || null,
       },
     });
-
-    res.status(201).json({ message: "User registered successfully." });
   } catch (error) {
-    console.error("Registration error:", error);
-    res.status(500).json({ message: "Server error, reguster try again later." });
+    console.error("Registration error:", error.message, error.stack);
+    res.status(500).json({ message: "Server error, try again later." });
   }
 };
+
 
 //  Login logic start from here
 

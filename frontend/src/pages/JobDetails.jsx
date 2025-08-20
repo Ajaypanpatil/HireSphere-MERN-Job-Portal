@@ -67,7 +67,7 @@ function JobDetails() {
         </p>
         <p className="text-gray-700 mb-4">
           <span className="font-semibold">Posted on:</span>{" "}
-          {new Date(job.createdAt).toLocaleDateString()}
+          {new Date(job.postedAt).toLocaleDateString()}
         </p>
         <h2 className="text-xl font-semibold mb-2">Job Description</h2>
         <p className="text-gray-600 whitespace-pre-line">{job.description}</p>

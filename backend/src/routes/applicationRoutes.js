@@ -1,5 +1,5 @@
 import express from 'express';
-import { applyToJob, getApplicationsForRecruiter, getApplicationsForCandidate, updateApplicationStatus } from '../controllers/applicationController.js';
+import { applyToJob, getApplicationsForRecruiter, getApplicationsForCandidate, updateApplicationStatus, checkApplication } from '../controllers/applicationController.js';
 import { protect } from '../middleware/authMiddleware.js'; 
 import { authorizeRoles } from '../middleware/roleMiddleware.js'; 
 
@@ -16,5 +16,9 @@ router.get('/me', protect, authorizeRoles('candidate'), getApplicationsForCandid
 
 // Recruiter updates application status
 router.patch('/:id', protect, authorizeRoles('recruiter'), updateApplicationStatus);
+
+// Check if candidate has already applied for a job
+router.get('/check/:jobId', protect, authorizeRoles('candidate'), checkApplication);
+
 
 export default router;

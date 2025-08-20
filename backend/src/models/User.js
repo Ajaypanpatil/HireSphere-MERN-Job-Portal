@@ -27,6 +27,12 @@ const userSchema = new mongoose.Schema({
     enum: ["candidate", "recruiter"],
     required: true,
   },
+  company: { 
+    type: String, 
+    trim: true, 
+    maxlength: 100, 
+    required: function() { return this.role === "recruiter"; } 
+  },
   createdAt: {
     type: Date,
     default: Date.now,

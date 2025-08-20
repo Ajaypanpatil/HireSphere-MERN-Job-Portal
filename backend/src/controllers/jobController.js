@@ -27,6 +27,7 @@ export const createJob = async (req, res) => {
   try {
     const job = new Job({
       recruiter: user.id,
+      company: user.company,
       title,
       description,
       skills,

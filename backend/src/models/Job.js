@@ -19,6 +19,10 @@ const jobSchema = mongoose.Schema({
     maxlength: 3000,
   },
 
+  salary: {
+  type: String,          
+},
+
   skills: {
     type: [String],
     required: true,
@@ -32,6 +36,10 @@ const jobSchema = mongoose.Schema({
     type: String,
     enum: ["Full-time", "Part-time", "Contract", "Internship"],
     default: "full-time",
+  },
+
+  company: { 
+    type: String,  
   },
 
   postedAt: {
@@ -49,3 +57,6 @@ const jobSchema = mongoose.Schema({
 const Job = mongoose.model('Job', jobSchema);
 
 export default Job;
+
+
+

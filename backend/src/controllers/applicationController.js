@@ -1,6 +1,26 @@
 import Application from "../models/Application.js";
 import Job from "../models/Job.js";
 
+// Check if candidate has already applied to a specific job
+export const checkApplication = async (req, res) => {
+  const candidateId = req.user.id;
+  const { jobId } = req.params;
+
+  try {
+    const existingApplication = await Application.findOne({
+      candidate: candidateId,
+      job: jobId,
+    });
+
+    return res.status(200).json({ applied: !!existingApplication });
+  } catch (error) {
+    console.error("Check application error:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
 //  candidate apply for the job
 export const applyToJob = async (req, res) => {
   const candidateId = req.user.id;
@@ -40,8 +60,9 @@ export const applyToJob = async (req, res) => {
     });
 
     await application.save();
-
     res.status(201).json({ message: "Applied Succesfully" });
+
+    
   } catch (error) {
     console.error("Apply to job error:", error);
     res.status(500).json({ message: "Server error, while applying job" });
