@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/apply', protect, authorizeRoles('candidate'), applyToJob);
 
 // Recruiter views applications for their jobs
-router.get('/recruiter', protect, authorizeRoles('recruiter'), getApplicationsForRecruiter);
+router.get('/job/:jobId', protect, authorizeRoles('recruiter'), getApplicationsForRecruiter);
 
 // Candidate views their own applications
 router.get('/me', protect, authorizeRoles('candidate'), getApplicationsForCandidate);
