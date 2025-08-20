@@ -12,7 +12,6 @@ const Navbar = () => {
   return (
     <header className="w-full bg-white border-b shadow sticky top-0 z-50">
       <div className="w-full flex items-center justify-between px-8 py-4">
-        
         {/* Logo (left corner) */}
         <Link to="/" className="flex items-center gap-2">
           <div className="w-9 h-9 bg-blue-500 text-white rounded flex items-center justify-center font-bold shadow">
@@ -23,7 +22,6 @@ const Navbar = () => {
 
         {/* Center navigation + Search bar */}
         <nav className="flex-1 flex justify-center items-center gap-8 text-lg font-medium">
-
           {/* Search bar */}
           <div className="hidden md:flex flex-1 max-w-md mx-4 relative">
             <input
@@ -34,7 +32,9 @@ const Navbar = () => {
             <FaSearch className="absolute left-3 top-3 text-gray-400" />
           </div>
 
-          <Link to="/jobs" className="hover:text-blue-500">Jobs</Link>
+          <Link to="/jobs" className="hover:text-blue-500">
+            Jobs
+          </Link>
         </nav>
 
         {/* Right side: Login/Register OR Notifications + Profile */}
@@ -95,6 +95,12 @@ const Navbar = () => {
                           onClick={() => navigate("/post-job")}
                         >
                           Post Job
+                        </button>
+                        <button
+                          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                          onClick={() => navigate("/my-jobs")}
+                        >
+                          View Jobs
                         </button>
                       </>
                     )}
