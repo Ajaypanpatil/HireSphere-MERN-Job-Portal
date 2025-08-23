@@ -21,10 +21,8 @@ const InterviewFeedback = () => {
 
     let parsed = feedback;
 
-    // If summary is a JSON string (like in your example)
     if (typeof feedback.summary === "string") {
       try {
-        // Remove ```json ... ``` if present
         const cleaned = feedback.summary.replace(/```json|```/g, "").trim();
         parsed = JSON.parse(cleaned);
       } catch (err) {
@@ -38,6 +36,12 @@ const InterviewFeedback = () => {
       weaknesses: parsed.weaknesses || [],
       score: parsed.score || 0,
     };
+  };
+
+  const getScoreColor = (score) => {
+    if (score >= 70) return "bg-green-500";
+    if (score >= 50) return "bg-yellow-400";
+    return "bg-red-500";
   };
 
   return (
@@ -102,7 +106,7 @@ const InterviewFeedback = () => {
                     <h4 className="font-semibold text-gray-700 mb-1">Score:</h4>
                     <div className="w-full bg-gray-200 h-4 rounded-full">
                       <div
-                        className="bg-green-500 h-4 rounded-full"
+                        className={`${getScoreColor(feedback.score)} h-4 rounded-full`}
                         style={{ width: `${feedback.score}%` }}
                       ></div>
                     </div>
