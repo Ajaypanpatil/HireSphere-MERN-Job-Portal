@@ -17,6 +17,8 @@ import CandidateDashboard from "./pages/CandidateDashboard";
 import PostJob from "./pages/PostJob";
 import MyJobs from "./pages/MyJobs";
 import JobList from "./pages/JobList";
+import InterviewPage from "./pages/InterviewPage";
+import InterviewHistory from "./pages/InterviewHistory";
 
 export default function App() {
   return (
@@ -66,6 +68,24 @@ export default function App() {
           element={
             <PrivateRoute allowedRoles={["recruiter"]}>
               <PostJob />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/interview"
+          element={
+            <PrivateRoute allowedRoles={["candidate"]}>
+              <InterviewPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/my-interviews"
+          element={
+            <PrivateRoute allowedRoles={["candidate"]}>
+              <InterviewHistory />
             </PrivateRoute>
           }
         />

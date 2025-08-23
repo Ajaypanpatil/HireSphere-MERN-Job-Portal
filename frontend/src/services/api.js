@@ -54,6 +54,32 @@ export const applyToJob = async (jobId) => {
 
 
 
+// ===================== INTERVIEWS =====================
+
+// Start new interview
+export const startInterview = async (jobRole, specification) => {
+  const { data } = await api.post("/interview/start", { jobRole, specification });
+  return data; // { interviewId, firstQuestion }
+};
+
+// Send answer + get next question
+export const sendAnswer = async (interviewId, answer) => {
+  const { data } = await api.post(`/interview/${interviewId}/answer`, { answer });
+  return data; // { nextQuestion, interview }
+};
+
+// End interview + get feedback
+export const endInterview = async (interviewId) => {
+  const { data } = await api.post(`/interview/${interviewId}/end`);
+  return data; // interview with feedback
+};
+
+// Get history of interviews
+export const getMyInterviews = async () => {
+  const { data } = await api.get("/interview/my");
+  return data;
+};
+
 
 
 

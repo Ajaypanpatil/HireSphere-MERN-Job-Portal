@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { FaBell, FaSearch } from "react-icons/fa";
 
+
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -119,6 +120,18 @@ const Navbar = () => {
                           onClick={() => navigate("/applied-jobs")}
                         >
                           Applied Jobs
+                        </button>
+                        <button
+                          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                          onClick={() => navigate("/interview")}
+                        >
+                          Interview Practice
+                        </button>
+                        <button
+                          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                          onClick={() => navigate("/my-interviews")}
+                        >
+                          My Interviews
                         </button>
                       </>
                     )}

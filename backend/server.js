@@ -7,8 +7,11 @@ import authRoutes from './src/routes/authRoutes.js';
 import testRoutes from './src/routes/testRoutes.js';
 import jobRoutes from './src/routes/jobRoutes.js';
 import applicationRoute from './src/routes/applicationRoutes.js'
+import interviewRoutes from './src/routes/interviewRoutes.js'
 
 dotenv.config();
+
+console.log("Gemini API Key:", process.env.GEMINI_API_KEY);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -28,6 +31,7 @@ app.use('/api/jobs', jobRoutes);
 
 app.use('/api/applications', applicationRoute);
 
+app.use('/api/interview', interviewRoutes);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
