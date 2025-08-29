@@ -80,6 +80,10 @@ export const getMyInterviews = async () => {
   return data;
 };
 
+export const deleteInterview = async (interviewId) => {
+  const { data } = await api.delete(`/interview/${interviewId}`);
+  return data;
+};
 
 
 

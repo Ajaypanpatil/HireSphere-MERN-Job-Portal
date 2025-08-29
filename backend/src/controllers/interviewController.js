@@ -1,4 +1,5 @@
 import Interview from "../models/Interview.js";
+import mongoose from "mongoose";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // ---------------- GEMINI HELPER ----------------
@@ -220,5 +221,37 @@ export const getMyInterviews = async (req, res) => {
     res.json(interviews);
   } catch (err) {
     res.status(500).json({ message: "Error fetching interviews" });
+  }
+};
+
+
+
+export const deleteInterview = async (req, res) => {
+  const interviewId = req.params.id;
+  const userId = req.user && req.user.id ? req.user.id : null;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(interviewId)) {
+      return res.status(400).json({ message: "Invalid interview id" });
+    }
+
+    const interview = await Interview.findById(interviewId);
+
+    if (!interview) {
+      return res.status(404).json({ message: "Interview not found" });
+    }
+
+    // Only owner (or admin) can delete
+    if (interview.user.toString() !== userId && !req.user?.isAdmin) {
+      return res.status(403).json({ message: "Not authorized to delete this interview" });
+    }
+
+    // Perform deletion (model-level)
+    await Interview.findByIdAndDelete(interviewId);
+
+    return res.status(200).json({ message: "Interview deleted successfully" });
+  } catch (error) {
+    console.error("Delete interview error:", error);
+    return res.status(500).json({ message: "Server error, could not delete interview." });
   }
 };
