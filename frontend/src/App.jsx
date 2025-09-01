@@ -1,104 +1,74 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Layout from "./components/Layout";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./components/Layout"; // Public layout (navbar + footer)
+import CandidateLayout from "./components/CandidateLayout"; // New
+import RecruiterLayout from "./components/RecruiterLayout"; // New
+
+// Public pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-// import Jobs from "./pages/Jobs";
 import JobDetails from "./pages/JobDetails";
-import Dashboard from "./pages/Dashboard";
-import PrivateRoute from "./routes/PrivateRoute";
-import RecruiterDashboard from "./pages/RecruiterDashboard";
+import Jobs from "./pages/Jobs";
+
+// Candidate pages
 import CandidateDashboard from "./pages/CandidateDashboard";
-import PostJob from "./pages/PostJob";
-import MyJobs from "./pages/MyJobs";
-import JobList from "./pages/JobList";
 import InterviewPage from "./pages/InterviewPage";
 import InterviewHistory from "./pages/InterviewHistory";
+
+// Recruiter pages
+import RecruiterDashboard from "./pages/RecruiterDashboard";
+import PostJob from "./pages/PostJob";
+import MyJobs from "./pages/MyJobs";
+
+// Other
+import PrivateRoute from "./routes/PrivateRoute";
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        {/* layout (navbar/footer) wrapper */}
+        {/* ---------- Public Pages ---------- */}
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/jobs" element={<JobList />} />
+          <Route path="/jobs" element={<Jobs />} />
           <Route path="/jobs/:id" element={<JobDetails />} />
         </Route>
 
-        {/* auth pages (no layout) */}
+        {/* Auth pages (no layout) */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* protected */}
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/recruiter"
-          element={
-            <PrivateRoute allowedRoles={["recruiter"]}>
-              <RecruiterDashboard />
-            </PrivateRoute>
-          }
-        />
+        {/* ---------- Candidate Dashboard ---------- */}
         <Route
           path="/candidate"
           element={
             <PrivateRoute allowedRoles={["candidate"]}>
-              <CandidateDashboard />
+              <CandidateLayout />
             </PrivateRoute>
           }
-        />
-        <Route path="/unauthorized" element={<Home />} />
+        >
+          <Route index element={<CandidateDashboard />} />
+          <Route path="applications" element={<CandidateDashboard />} />
+          <Route path="profile" element={<CandidateDashboard />} />
+          <Route path="interview" element={<InterviewPage />} />
+          <Route path="my-interviews" element={<InterviewHistory />} />
+        </Route>
 
+        {/* ---------- Recruiter Dashboard ---------- */}
         <Route
-          path="/post-job"
+          path="/recruiter"
           element={
             <PrivateRoute allowedRoles={["recruiter"]}>
-              <PostJob />
+              <RecruiterLayout />
             </PrivateRoute>
           }
-        />
+        >
+          <Route index element={<RecruiterDashboard />} />
+          <Route path="post-job" element={<PostJob />} />
+          <Route path="my-jobs" element={<MyJobs />} />
+        </Route>
 
-        <Route
-          path="/interview"
-          element={
-            <PrivateRoute allowedRoles={["candidate"]}>
-              <InterviewPage />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/my-interviews"
-          element={
-            <PrivateRoute allowedRoles={["candidate"]}>
-              <InterviewHistory />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/my-jobs"
-          element={
-            <PrivateRoute allowedRoles={["recruiter"]}>
-              <MyJobs />
-            </PrivateRoute>
-          }
-        />
-
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

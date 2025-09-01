@@ -8,16 +8,21 @@ export default function InterviewPage() {
   const [feedback, setFeedback] = useState(null);
 
   // -------------------- Text-to-Speech --------------------
-  const speakText = (text) => {
-    if ("speechSynthesis" in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "en-US";
-      utterance.rate = 1;
-      window.speechSynthesis.speak(utterance);
-    } else {
-      alert("Sorry, your browser does not support speech synthesis.");
-    }
-  };
+  // Speak text aloud using browser's speech synthesis
+function speakText(text) {
+  if (!("speechSynthesis" in window)) {
+    console.warn("Speech synthesis not supported in this browser.");
+    return;
+  }
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-US";
+  utterance.rate = 1; // speed (0.5 - 2)
+  utterance.pitch = 1; // tone (0 - 2)
+  window.speechSynthesis.speak(utterance);
+}
+
+  
 
   // -------------------- Speech-to-Text --------------------
   const startListening = (onResult) => {
@@ -51,7 +56,7 @@ export default function InterviewPage() {
       const res = await startInterview("Java Developer", "core java, spring, dsa basic");
       setInterviewId(res.interviewId);
       setQuestion(res.firstQuestion);
-      speakText(res.firstQuestion); // speak first question
+      speakText(res.firstQuestion);
     } catch (err) {
       console.error("Error starting interview:", err);
       alert(err);
