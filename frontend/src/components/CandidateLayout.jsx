@@ -5,9 +5,15 @@ export default function CandidateLayout() {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 text-white p-6 space-y-4">
+      <aside className="w-60 bg-gray-800 text-white p-6 space-y-4">
         <h2 className="text-xl font-bold mb-6">Candidate Panel</h2>
         <nav className="space-y-2">
+          <Link 
+  to="/" 
+  className="block hover:bg-gray-700 p-2 rounded"
+>
+  🏠 Home
+</Link>
           <Link to="/candidate" className="block hover:bg-gray-700 p-2 rounded">
             Dashboard
           </Link>
@@ -36,6 +42,9 @@ export default function CandidateLayout() {
             Interview History
           </Link>
         </nav>
+
+        
+        
       </aside>
 
       {/* Content */}

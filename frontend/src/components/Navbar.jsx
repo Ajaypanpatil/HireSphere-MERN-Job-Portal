@@ -26,7 +26,7 @@ const Navbar = () => {
         {/* Center navigation + Search bar */}
         <nav className="flex-1 flex justify-center items-center gap-8 text-lg font-medium">
           {/* Hide search bar on home page */}
-          {!isHomePage && (
+          
             <div className="hidden md:flex flex-1 max-w-md mx-4 relative">
               <input
                 type="text"
@@ -35,7 +35,6 @@ const Navbar = () => {
               />
               <FaSearch className="absolute left-3 top-3 text-gray-400" />
             </div>
-          )}
           <Link to="/jobs" className="hover:text-blue-500">
             Jobs
           </Link>

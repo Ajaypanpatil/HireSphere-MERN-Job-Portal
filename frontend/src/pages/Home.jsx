@@ -17,23 +17,6 @@ export default function Home() {
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             Find Your Dream Job with HireSphere
           </h1>
-          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-            For Candidates & Recruiters – Smart, Fast, and AI-Powered Hiring.
-          </p>
-          <div className="flex justify-center gap-4">
-            <Link
-              to="/jobs"
-              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
-            >
-              Browse Jobs
-            </Link>
-            <Link
-              to="/post-job"
-              className="bg-indigo-800 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-900 transition"
-            >
-              Post a Job
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -49,11 +32,6 @@ export default function Home() {
               placeholder="Job title or keyword"
               className="border rounded-lg px-4 py-2 w-full md:w-1/3"
             />
-            <input
-              type="text"
-              placeholder="Location"
-              className="border rounded-lg px-4 py-2 w-full md:w-1/4"
-            />
             <button
               type="submit"
               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
@@ -63,7 +41,6 @@ export default function Home() {
           </form>
         </div>
       </section>
-
       {/* Featured Jobs (placeholder for now) */}
       <section className="py-16 container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center mb-10">
@@ -112,60 +89,3 @@ export default function Home() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-//code for getting jobcards to show in home page
-/*
-import { getAllJobs } from "../services/api";
-import { useState, useEffect } from "react";
-import JobCard from "../components/JobCards";
-
-function JobList() {
-  const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const data = await getAllJobs();
-        setJobs(data.jobs || data || []); // ensures jobs is always an array
-      } catch (error) {
-        setError("Failed to fetch jobs from backend");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchJobs();
-  }, []);
-
-  if (loading)
-    return <p className="text-center text-gray-500 mt-10">Loading jobs...</p>;
-  if (error)
-    return <p className="text-center text-red-500 mt-10">{error}</p>;
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">Available Jobs</h1>
-      {jobs.length === 0 ? (
-        <p className="text-center text-gray-600">No jobs found.</p>
-      ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {jobs.map((job) => (
-            <JobCard key={job._id} job={job} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default JobList;
-
-*/

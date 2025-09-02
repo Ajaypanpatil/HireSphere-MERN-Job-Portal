@@ -4,14 +4,11 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import connectDB from './src/config/db.js';
 import authRoutes from './src/routes/authRoutes.js';
-import testRoutes from './src/routes/testRoutes.js';
 import jobRoutes from './src/routes/jobRoutes.js';
 import applicationRoute from './src/routes/applicationRoutes.js'
 import interviewRoutes from './src/routes/interviewRoutes.js'
 
 dotenv.config();
-
-console.log("Gemini API Key:", process.env.GEMINI_API_KEY);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,8 +20,6 @@ app.use(cookieParser());
 app.get('/', (req, res) => res.send('API running'));
 
 app.use('/api/auth', authRoutes);
-
-app.use('/api/test', testRoutes);
 
 
 app.use('/api/jobs', jobRoutes);
