@@ -7,7 +7,6 @@ function Jobs() {
   const [error, setError] = useState(null);
 
   // Filters
-  const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState("");
   const [employmentType, setEmploymentType] = useState("");
 
@@ -27,7 +26,6 @@ function Jobs() {
       const { data } = await api.get("/jobs", {
         params: {
           page,
-          keyword: keyword || undefined,
           location: location || undefined,
           employmentType: employmentType || undefined,
         },
@@ -57,13 +55,6 @@ function Jobs() {
         onSubmit={handleSearch}
         className="bg-white shadow p-4 rounded mb-6 grid grid-cols-1 md:grid-cols-4 gap-4"
       >
-        <input
-          type="text"
-          placeholder="Keyword (e.g. React, Java)"
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-          className="border p-2 rounded"
-        />
         <input
           type="text"
           placeholder="Location"
